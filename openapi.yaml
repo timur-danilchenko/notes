@@ -1,0 +1,102 @@
+openapi: "3.0.0"
+info:
+  title: "Notes API"
+  version: "1.0.0"
+  description: "An API for creating, reading, updating, and deleting notes"
+servers:
+  - url: "http://localhost:8080"
+paths:
+  /notes:
+    get:
+      summary: "Get all notes"
+      operationId: "getNotes"
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Note"
+    post:
+      summary: "Create a new note"
+      operationId: "createNote"
+      requestBody:
+        description: "The note to create"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NoteInput"
+      responses:
+        '201':
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Note"
+    put:
+      summary: "Update an existing note"
+      operationId: "updateNote"
+      parameters:
+        - name: id
+          in: "path"
+          description: "The ID of the note to update"
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: "The updated note"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NoteInput"
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Note"
+    delete:
+      summary: "Delete a note"
+      operationId: "deleteNote"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "The ID of the note to delete"
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: "No Content"
+components:
+  schemas:
+    Note:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - title
+        - content
+    NoteInput:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - title
+        - content
