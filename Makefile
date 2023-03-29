@@ -1,13 +1,20 @@
 include .env
-export $(shell sed 's/=.*//' .env)
+
+.PHONY: all
+all:
+	make start & PID=$$; \
+	sleep 1; \
+	make migrate-up; \
+	trap 'make drop-table; kill $$PID' EXIT; \
+	wait
 
 .PHONY: setup
 setup:
-	@go get github.com/gorilla/mux
-	@go get github.com/lib/pq
-	@go get github.com/joho/godotenv
-	@go get github.com/jinzhu/gorm
-	@go get github.com/golang-migrate/migrate/v4
+	@echo "Installing dependencies..."
+	@go mod download
+	@go mod download github.com/gorilla/mux
+	@go mod download github.com/lib/pq
+	@echo "Dependencies installed"
 
 .PHONY: start
 start:
@@ -24,11 +31,3 @@ migrate-down:
 .PHONY: drop-table
 drop-table:
 	migrate -path migrations -database "$(DB_URL)" drop -f
-
-.PHONY: all
-all:
-	make start & PID=$$; \
-	sleep 1; \
-	make migrate-up; \
-	trap 'make drop-table; kill $$PID' EXIT; \
-	wait
