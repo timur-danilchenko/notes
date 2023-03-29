@@ -3,11 +3,11 @@ export $(shell sed 's/=.*//' .env)
 
 .PHONY: setup
 setup:
-    @go get github.com/gorilla/mux
-    @go get github.com/lib/pq
-    @go get github.com/joho/godotenv
-    @go get github.com/jinzhu/gorm
-    @go get github.com/golang-migrate/migrate/v4
+	@go get github.com/gorilla/mux
+	@go get github.com/lib/pq
+	@go get github.com/joho/godotenv
+	@go get github.com/jinzhu/gorm
+	@go get github.com/golang-migrate/migrate/v4
 
 .PHONY: start
 start:
