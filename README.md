@@ -8,7 +8,7 @@ This is a simple REST API project built with Go, using the Gorilla Mux router an
 To get started with this project, first clone the repository to your local machine:
 
 ```
-git clone https://github.com/timur-danilchenko/go-nodes.git
+git clone https://github.com/timur-danilchenko/notes.git
 ```
 
 ### Prerequisites
