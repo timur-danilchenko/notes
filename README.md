@@ -1,5 +1,5 @@
 
-# Golang REST API Project: Go Nodes
+# Golang REST API Project: Notes
 
 This is a simple REST API project built with Go, using the Gorilla Mux router and PostgreSQL as the database.
 
